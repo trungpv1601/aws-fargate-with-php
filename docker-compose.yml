@@ -5,6 +5,9 @@ services:
     build:
       context: .
       target: laravelapp_php
+    depends_on:
+      - db
+      - redis
 
   nodejs:
     build:
@@ -22,3 +25,19 @@ services:
       - nodejs
     ports:
       - "80:80"
+
+  db:
+    image: mysql:5.7
+    container_name: laravelapp_db
+    environment:
+      - MYSQL_DATABASE=laravelapp
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:5-alpine
+    container_name: laravelapp_redis
+    command: redis-server --requirepass secret
+    ports:
+      - "6379:6379"

@@ -103,6 +103,7 @@ RUN set -eux; \
 # prevent the reinstallation of vendors at every changes in the source code
 COPY package.json yarn.lock webpack.mix.js ./
 COPY resources/ ./resources/
+COPY public/ ./public/
 RUN set -eux; \
     yarn install; \
     yarn cache clean;
